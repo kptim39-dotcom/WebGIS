@@ -1,0 +1,1075 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ============ HEADER ============ */
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1200;
+  flex-wrap: nowrap;
+}
+
+/* ---- Tombol Kembali ke Beranda ---- */
+#back-home-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #333;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+#back-home-btn:hover {
+  background: #f0f0f0;
+}
+
+.logo-group {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.logo-frame {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-frame.logo-wide {
+  width: 64px;
+}
+
+.logo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.title-main {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title-sub {
+  font-size: 11px;
+  color: #888;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ============ SEARCH BOX ============ */
+.search-box {
+  position: relative;
+}
+
+.search-box input {
+  height: 32px;
+  font-size: 12px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  width: 150px;
+  background: #fafafa;
+  color: #333;
+}
+
+.search-results {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.search-result-item {
+  font-size: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  color: #333;
+}
+
+.search-result-item:hover {
+  background: #fdeceb;
+}
+
+/* ============ BASEMAP DROPDOWN ============ */
+.basemap-toggle {
+  height: 32px;
+  display: flex;
+  align-items: stretch;
+  background: #f0f0ee;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+  box-sizing: border-box;
+}
+
+.basemap-btn {
+  font-size: 11.5px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.basemap-btn.active {
+  background: #E24B4A;
+  color: #fff;
+}
+
+#info-btn,
+#export-btn {
+  height: 32px;
+  font-size: 11.5px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+#info-btn:hover,
+#export-btn:hover {
+  background: #f0f0f0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .topbar-actions {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+
+  .title-block {
+    flex-basis: 100%;
+  }
+}
+
+/* ============ MAIN BODY ============ */
+.main-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  width: 240px;
+  background: #fcfcfa;
+  border-right: 1px solid #eee;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+  transition: width 0.22s ease, padding 0.22s ease, border-color 0.22s ease;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  padding: 16px 0;
+  border-right-color: transparent;
+  overflow: hidden;
+}
+
+.section-label {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sidebar-section label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 5px 4px;
+  color: #444;
+  cursor: pointer;
+}
+
+/* ============ STATISTIK ============ */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.stat-card {
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+}
+
+.stat-card-tinggi { background: #fdeceb; }
+.stat-card-sedang { background: #fdf3e2; }
+.stat-card-rendah { background: #eef6e4; }
+
+.stat-value {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.stat-card-tinggi .stat-value { color: #E24B4A; }
+.stat-card-sedang .stat-value { color: #BA7517; }
+.stat-card-rendah .stat-value { color: #639922; }
+
+.stat-label {
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.stat-card-tinggi .stat-label { color: #c0524f; }
+.stat-card-sedang .stat-label { color: #a06a1a; }
+.stat-card-rendah .stat-label { color: #557f1e; }
+
+.breakdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.breakdown-table th {
+  color: #999;
+  font-weight: 500;
+  padding: 4px 2px;
+  text-align: center;
+}
+
+.breakdown-table th:first-child {
+  text-align: left;
+}
+
+.breakdown-table td {
+  padding: 4px 2px;
+  text-align: center;
+  color: #444;
+  border-top: 1px solid #f0f0f0;
+}
+
+.breakdown-table td:first-child {
+  text-align: left;
+  color: #666;
+  font-weight: 500;
+}
+
+/* ============ RINCIAN PER KAWASAN SENSITIF ============ */
+.rincian-kawasan {
+  margin-top: 10px;
+}
+
+.rincian-kawasan-empty {
+  font-size: 11px;
+  color: #aaa;
+  font-style: italic;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.rincian-kawasan-block {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+
+.rincian-kawasan-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============ LEGENDA ============ */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 3px 0;
+  color: #444;
+}
+
+.legend-divider {
+  height: 1px;
+  background: #eee;
+  margin: 8px 0;
+}
+
+/* Simbol bentuk infrastruktur (warna netral, karena warna aslinya di peta
+   mengikuti kategori risiko, bukan jenis infrastrukturnya) */
+.symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.symbol-sumur::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #999;
+  border: 2px solid #fff;
+  outline: 1px solid #ccc;
+  box-sizing: content-box;
+  flex-shrink: 0;
+}
+
+.symbol-manifold::before {
+  content: '';
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #999;
+  border: 2px solid #2C2C2A;
+  box-sizing: content-box;
+  flex-shrink: 0;
+}
+
+.symbol-pipa::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 3px;
+  background: #999;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-tinggi { background: #E24B4A; }
+.dot-sedang { background: #BA7517; }
+.dot-rendah { background: #639922; }
+
+/* Warna unsur sesuai SNI 6502.2:2010 (Spesifikasi Penyajian Peta RBI - BIG) */
+.swatch {
+  width: 14px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.swatch-line {
+  height: 3px;
+  border-radius: 0;
+}
+
+.swatch-sungai { background: #00FFFF; } /* Perairan/Sungai: Cyan 100,0,0,0 */
+.swatch-pemukiman { background: #FFD8B2; border: 1px solid #2C2C2A; } /* Permukiman: garis hitam, isi jingga 30% */
+.swatch-hutan { background: #BFFF99; border: 1px solid #8FCF5C; } /* Hutan: Hijau 25,0,40,0 */
+.swatch-jalan { background: #888780; }
+.swatch-batas {
+  background: repeating-linear-gradient(90deg, #2C2C2A 0 4px, transparent 4px 7px);
+}
+.swatch-buffer {
+  background: repeating-linear-gradient(45deg, #999 0 3px, transparent 3px 6px);
+  border: 1px dashed #999;
+  opacity: 0.6;
+}
+
+/* ============ SIDEBAR FOOTER ============ */
+.sidebar-footer {
+  margin-top: auto;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.footer-label {
+  font-size: 10px;
+  color: #aaa;
+}
+
+.footer-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 2px;
+}
+
+.footer-sub {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* ============ PETA ============ */
+.map-wrap {
+  flex: 1;
+  position: relative;
+}
+
+/* Tombol toggle sidebar — kotak seperti tombol lain, ditaruh sejajar
+   dengan section "Statistik Risiko" di sidebar (di bawah kontrol zoom
+   Leaflet biar gak numpuk/nabrak). */
+.sidebar-edge-toggle {
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
+  z-index: 800;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-edge-toggle:hover {
+  background: #fdeceb;
+  color: #E24B4A;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.north-arrow {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  z-index: 400;
+}
+
+.mouse-coord {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 11px;
+  color: #555;
+  z-index: 400;
+}
+
+/* ============ POPUP LEAFLET (TABEL) ============ */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  width: 240px !important;
+}
+
+.popup-header {
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.popup-header.risk-tinggi { background: #E24B4A; }
+.popup-header.risk-sedang { background: #BA7517; }
+.popup-header.risk-rendah { background: #639922; }
+
+.popup-table {
+  width: 100%;
+  font-size: 12px;
+  border-collapse: collapse;
+}
+
+.popup-table td {
+  padding: 6px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.popup-table tr:last-child td {
+  border-bottom: none;
+}
+
+.popup-table td:first-child {
+  color: #888;
+}
+
+.popup-table td:last-child {
+  text-align: right;
+  font-weight: 500;
+  color: #333;
+}
+
+.popup-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 20px;
+  margin-top: 2px;
+}
+
+.popup-tag.risk-tinggi { background: #fdeceb; color: #E24B4A; }
+.popup-tag.risk-sedang { background: #fdf3e2; color: #BA7517; }
+.popup-tag.risk-rendah { background: #eef6e4; color: #639922; }
+
+.popup-download-btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+  color: #E24B4A;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.popup-download-btn:hover {
+  background: #fdeceb;
+}
+
+/* ============ MODAL INFORMASI PETA ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 18, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 14px;
+  width: min(520px, 92vw);
+  max-height: 84vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.modal-close:hover { color: #333; }
+
+.modal-body {
+  padding: 16px 18px;
+}
+
+.metadata-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.metadata-table td {
+  padding: 9px 6px;
+  vertical-align: top;
+  border-top: 1px solid #f2f2f0;
+  line-height: 1.5;
+}
+
+.metadata-table td:first-child {
+  width: 38%;
+  color: #888;
+  font-weight: 600;
+}
+
+.metadata-table td:last-child {
+  color: #333;
+}
+
+.meta-note {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #BA7517;
+  font-style: italic;
+}
+
+/* ============ LOADING OVERLAY ============ */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(252, 252, 250, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 1500;
+  transition: opacity 0.25s ease;
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #eee;
+  border-top-color: #E24B4A;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 12px;
+  color: #777;
+}
+
+/* ============ ERROR BANNER ============ */
+.error-banner {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  background: #fdeceb;
+  border: 1px solid #f3b9b7;
+  color: #a8332f;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  z-index: 900;
+}
+
+.error-banner button {
+  border: none;
+  background: transparent;
+  color: #a8332f;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ============ TOOL PETA (UKUR & FULLSCREEN) ============ */
+.map-tools-control a.map-tool-btn {
+  font-size: 15px;
+}
+
+.map-tool-btn.active {
+  background: #E24B4A !important;
+  color: #fff !important;
+}
+
+/* ============ BACK LINK (title-block) ============ */
+.title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 90px;
+  overflow: hidden;
+}
+
+.back-link {
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #444;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  padding: 0 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.back-link:hover {
+  background: #fdeceb;
+  border-color: #f3b9b7;
+  color: #E24B4A;
+}
+
+/* ============ TOOL GROUP (icon buttons) ============ */
+.tool-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  font-size: 13px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.icon-btn:hover {
+  background: #f0f0f0;
+}
+
+.icon-btn.active {
+  background: #E24B4A;
+  color: #fff;
+  border-color: #E24B4A;
+}
+
+/* ============ INFO PANEL (metadata) ============ */
+.info-panel {
+  position: absolute;
+  top: 56px;
+  right: 18px;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  z-index: 1300;
+}
+
+.info-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #eee;
+  font-weight: 700;
+  font-size: 13px;
+  color: #222;
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+
+.info-panel-close {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.info-panel-close:hover {
+  color: #333;
+}
+
+.info-panel-body {
+  padding: 12px 14px;
+}
+
+.info-panel-body dt {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.info-panel-body dt:first-child {
+  margin-top: 0;
+}
+
+.info-panel-body dd {
+  font-size: 12px;
+  color: #333;
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+.info-note {
+  color: #BA7517;
+  font-style: italic;
+}
+
+/* ============ NOTIFICATION CONTAINER ============ */
+.notif-container {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.notif-container:empty {
+  display: none;
+}
+
+.notif {
+  background: #fdeceb;
+  border: 1px solid #f3b9b7;
+  color: #a8332f;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.notif button {
+  border: none;
+  background: transparent;
+  color: #a8332f;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.notif.notif-info {
+  background: #eef6e4;
+  border-color: #c9e3ab;
+  color: #557f1e;
+}
+
+.notif.notif-info button {
+  color: #557f1e;
+}
+
+/* ============ LOADING SPINNER (generic) ============ */
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #eee;
+  border-top-color: #E24B4A;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ============ BUFFER SWATCHES (legenda) ============ */
+.swatch-buffer-sungai {
+  background: repeating-linear-gradient(45deg, #00FFFF 0 3px, transparent 3px 6px);
+  border: 1px dashed #00b8b8;
+  opacity: 0.6;
+}
+
+.swatch-buffer-pemukiman {
+  background: repeating-linear-gradient(45deg, #FFD8B2 0 3px, transparent 3px 6px);
+  border: 1px dashed #d99a5c;
+  opacity: 0.6;
+}
+
+.swatch-buffer-hutan {
+  background: repeating-linear-gradient(45deg, #BFFF99 0 3px, transparent 3px 6px);
+  border: 1px dashed #8fcf5c;
+  opacity: 0.6;
+}
+
+/* ============ PRINT METADATA BLOCK ============ */
+.print-metadata {
+  display: none;
+}
+
+/* ============ PRINT ============ */
+@media print {
+  .search-box,
+  .basemap-toggle,
+  .back-link,
+  .tool-group,
+  .sidebar-edge-toggle,
+  .info-panel,
+  .leaflet-control-zoom,
+  .map-tools-control,
+  .loading-overlay,
+  .notif-container,
+  .no-print,
+  .sidebar-section input[type="checkbox"] {
+    display: none !important;
+  }
+
+  .dashboard {
+    height: auto;
+  }
+
+  .main-body {
+    display: block;
+  }
+
+  .sidebar,
+  .sidebar.collapsed {
+    width: 100% !important;
+    padding: 16px !important;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    overflow: visible !important;
+  }
+
+  .map-wrap {
+    height: 90vh;
+    page-break-before: always;
+  }
+
+  #map {
+    height: 100%;
+  }
+
+  .print-metadata {
+    display: block;
+    padding: 12px 0 0;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+  }
+
+  .print-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #222;
+  }
+
+  .print-metadata p {
+    font-size: 11px;
+    color: #555;
+    margin-top: 2px;
+  }
+}

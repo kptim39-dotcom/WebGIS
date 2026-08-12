@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pemetaan Zona Risiko Lingkungan - Infrastruktur Migas PHR</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <div class="logo-group">
+        <div class="logo-frame logo-wide"><img src="foto/pertamina_hr.png" alt="Pertamina Hulu Rokan" title="Pertamina Hulu Rokan" /></div>
+        <div class="logo-frame"><img src="foto/its.png" alt="ITS" title="Institut Teknologi Sepuluh Nopember" /></div>
+        <div class="logo-frame"><img src="foto/geomat.png" alt="Departemen Teknik Geomatika ITS" title="Departemen Teknik Geomatika ITS" /></div>
+      </div>
+      <div class="title-block">
+        <p class="title-main">Pemetaan Zona Risiko Lingkungan Infrastruktur Migas</p>
+        <p class="title-sub">Pertamina Hulu Rokan &middot; Wilayah Kerja Zona 1</p>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="search-box">
+          <input type="text" id="search-sumur" placeholder="Cari nama sumur..." autocomplete="off" />
+          <div id="search-results" class="search-results hidden"></div>
+        </div>
+
+        <div class="basemap-toggle">
+          <button class="basemap-btn active" id="btn-osm" data-map="osm">OpenStreetMap</button>
+          <button class="basemap-btn" id="btn-satellite" data-map="satellite">Satelit</button>
+          <button class="basemap-btn" id="btn-topo" data-map="topo">Topografi</button>
+        </div>
+
+        <div class="tool-group">
+          <button id="btn-reset" class="icon-btn" title="Reset ke tampilan awal">⟲</button>
+          <button id="btn-fullscreen" class="icon-btn" title="Layar penuh">⛶</button>
+          <button id="btn-export" class="icon-btn" title="Unduh data (CSV)">⭳</button>
+          <button id="btn-info" class="icon-btn" title="Info & metadata peta">ⓘ</button>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Beranda</a>
+      </div>
+
+      <!-- PANEL METADATA -->
+      <div id="info-panel" class="info-panel hidden">
+        <div class="info-panel-header">
+          <p>Metadata Peta</p>
+          <button id="info-panel-close" class="info-panel-close">&times;</button>
+        </div>
+        <dl class="info-panel-body">
+          <dt>Sistem Referensi Koordinat</dt>
+          <dd>WGS 1984 (EPSG:4326); ditampilkan dalam proyeksi Web Mercator (EPSG:3857)</dd>
+
+          <dt>Sistem Koordinat Sumber Data</dt>
+          <dd>UTM Zona 47N</dd>
+
+          <dt>Sumber Data</dt>
+          <dd>
+            <strong>Data Infrastruktur Migas:</strong> Pertamina Hulu Rokan, Wilayah Kerja Zona 1<br>
+            <strong>Citra Dasar:</strong> OpenStreetMap / Esri World Imagery / OpenTopoMap<br>
+            <strong>Kawasan Sensitif:</strong> Peta Rupabumi Indonesia (RBI), Lapak GIS &mdash; Badan Informasi Geospasial
+          </dd>
+
+          <dt>Skala Peta</dt>
+          <dd>Interaktif, menyesuaikan level zoom</dd>
+
+          <dt>Instansi Penyusun</dt>
+          <dd>Departemen Teknik Geomatika, Institut Teknologi Sepuluh Nopember (ITS), bekerja sama dengan Pertamina Hulu Rokan</dd>
+
+          <dt>Disusun oleh</dt>
+          <dd>Jeshinta Mevianda Wilujeng (5016231007)<br>Firsty Fairus Jihan Rifani (5016231024)<br>2026</dd>
+        </dl>
+      </div>
+    </header>
+
+    <div class="main-body">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="sidebar-section sidebar-section-stat">
+          <p class="section-label">Statistik Risiko</p>
+          <div class="stat-grid">
+            <div class="stat-card stat-card-tinggi">
+              <p class="stat-value" id="count-tinggi">-</p>
+              <p class="stat-label">Tinggi</p>
+            </div>
+            <div class="stat-card stat-card-sedang">
+              <p class="stat-value" id="count-sedang">-</p>
+              <p class="stat-label">Sedang</p>
+            </div>
+            <div class="stat-card stat-card-rendah">
+              <p class="stat-value" id="count-rendah">-</p>
+              <p class="stat-label">Rendah</p>
+            </div>
+          </div>
+
+          <table class="breakdown-table">
+            <thead>
+              <tr><th></th><th>Tinggi</th><th>Sedang</th><th>Rendah</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sumur</td>
+                <td id="bd-sumur-tinggi">-</td>
+                <td id="bd-sumur-sedang">-</td>
+                <td id="bd-sumur-rendah">-</td>
+              </tr>
+              <tr>
+                <td>Pipa</td>
+                <td id="bd-pipa-tinggi">-</td>
+                <td id="bd-pipa-sedang">-</td>
+                <td id="bd-pipa-rendah">-</td>
+              </tr>
+              <tr>
+                <td>Manifold</td>
+                <td id="bd-manifold-tinggi">-</td>
+                <td id="bd-manifold-sedang">-</td>
+                <td id="bd-manifold-rendah">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sidebar-section no-print">
+          <p class="section-label">Infrastruktur Migas</p>
+          <label><input type="checkbox" id="toggle-sumur" checked /> Sumur</label>
+          <label><input type="checkbox" id="toggle-pipa" checked /> Jaringan Pipa</label>
+          <label><input type="checkbox" id="toggle-manifold" checked /> Manifold</label>
+        </div>
+
+        <div class="sidebar-section no-print">
+          <p class="section-label">Kawasan Sensitif</p>
+          <label><input type="checkbox" id="toggle-sungai" checked /> Sungai</label>
+          <label><input type="checkbox" id="toggle-pemukiman" checked /> Pemukiman</label>
+          <label><input type="checkbox" id="toggle-hutan" checked /> Hutan</label>
+
+          <div id="rincian-kawasan" class="rincian-kawasan"></div>
+        </div>
+
+        <div class="sidebar-section no-print">
+          <p class="section-label">Buffer Zona Sensitif</p>
+          <label><input type="checkbox" id="toggle-buffer-sungai" /> Buffer Sungai</label>
+          <label><input type="checkbox" id="toggle-buffer-pemukiman" /> Buffer Pemukiman</label>
+          <label><input type="checkbox" id="toggle-buffer-hutan" /> Buffer Hutan</label>
+        </div>
+
+        <div class="sidebar-section no-print">
+          <p class="section-label">Konteks</p>
+          <label><input type="checkbox" id="toggle-jalan" /> Jalan</label>
+          <label><input type="checkbox" id="toggle-batas" checked /> Batas Area Studi</label>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="section-label">Legenda</p>
+          <div class="legend-item"><span class="symbol symbol-sumur"></span>Sumur</div>
+          <div class="legend-item"><span class="symbol symbol-manifold"></span>Manifold</div>
+          <div class="legend-item"><span class="symbol symbol-pipa"></span>Jaringan Pipa</div>
+          <div class="legend-divider"></div>
+          <div class="legend-item"><span class="dot dot-tinggi"></span>Risiko Tinggi</div>
+          <div class="legend-item"><span class="dot dot-sedang"></span>Risiko Sedang</div>
+          <div class="legend-item"><span class="dot dot-rendah"></span>Risiko Rendah</div>
+          <div class="legend-divider"></div>
+          <div class="legend-item"><span class="swatch swatch-line swatch-sungai"></span>Sungai</div>
+          <div class="legend-item"><span class="swatch swatch-area swatch-pemukiman"></span>Pemukiman</div>
+          <div class="legend-item"><span class="swatch swatch-area swatch-hutan"></span>Hutan</div>
+          <div class="legend-item"><span class="swatch swatch-line swatch-jalan"></span>Jalan</div>
+          <div class="legend-item"><span class="swatch swatch-line swatch-batas"></span>Batas Area Studi</div>
+          <div class="legend-item"><span class="swatch swatch-area swatch-buffer-sungai"></span>Buffer Sungai</div>
+          <div class="legend-item"><span class="swatch swatch-area swatch-buffer-pemukiman"></span>Buffer Pemukiman</div>
+          <div class="legend-item"><span class="swatch swatch-area swatch-buffer-hutan"></span>Buffer Hutan</div>
+        </div>
+
+        <div class="sidebar-footer">
+          <p class="footer-label">Disusun oleh</p>
+          <p class="footer-name">Jeshinta Mevianda Wilujeng<br>Firsty Fairus Jihan Rifani</p>
+          <p class="footer-sub">Departemen Teknik Geomatika ITS &middot; 2026</p>
+        </div>
+      </aside>
+
+      <!-- PETA -->
+      <main class="map-wrap">
+        <button id="btn-sidebar-toggle" class="sidebar-edge-toggle" title="Sembunyikan panel">&lsaquo;</button>
+        <div id="map"></div>
+
+        <div id="loading-overlay" class="loading-overlay">
+          <div class="spinner"></div>
+          <p>Memuat data...</p>
+        </div>
+
+        <div id="notif-container" class="notif-container"></div>
+
+        <div id="north-arrow" class="north-arrow" title="Utara">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2 L18 20 L12 16 L6 20 Z" fill="#333"/>
+          </svg>
+        </div>
+
+        <div id="mouse-coord" class="mouse-coord">-</div>
+
+        <div id="print-metadata" class="print-metadata">
+          <p class="print-title">Pemetaan Zona Risiko Lingkungan Infrastruktur Migas &mdash; Pertamina Hulu Rokan, Wilayah Kerja Zona 1</p>
+          <p>Sistem Koordinat: WGS 1984 (EPSG:4326) &middot; UTM Zona 47N</p>
+          <p>Sumber Data: Infrastruktur &mdash; Pertamina Hulu Rokan; Kawasan Sensitif &mdash; Peta RBI (Lapak GIS, BIG)</p>
+          <p>Disusun oleh: Jeshinta Mevianda Wilujeng &amp; Firsty Fairus Jihan Rifani &middot; Departemen Teknik Geomatika ITS, 2026</p>
+          <p id="print-date"></p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

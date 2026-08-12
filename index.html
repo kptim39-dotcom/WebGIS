@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pemetaan Zona Risiko Lingkungan Infrastruktur Migas &mdash; PHR Zona 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logos">
+    <div class="nav-logo-frame nav-logo-wide"><img src="foto/pertamina_hr.png" alt="Pertamina Hulu Rokan" /></div>
+    <div class="nav-logo-frame"><img src="foto/its.png" alt="ITS" /></div>
+    <div class="nav-logo-frame"><img src="foto/geomat.png" alt="Departemen Teknik Geomatika ITS" /></div>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#metodologi">Metodologi</a>
+    <a href="#fitur">Fitur</a>
+    <a href="#tim">Tim</a>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="hero-text">
+    <p class="doc-tag">KERJA PRAKTEK TEKNIK GEOMATIKA ITS &middot; 2026</p>
+    <h1 class="hero-title">
+      Pemetaan Zona Risiko<br>
+      <span class="hl">Infrastruktur Migas</span>
+    </h1>
+    <p class="hero-subtitle">Pertamina Hulu Rokan &middot; Wilayah Kerja Zona 1</p>
+    <p class="hero-desc">
+      Studi ini memetakan seberapa dekat sumur, pipa, dan manifold berdiri dari sungai, permukiman,
+      dan hutan, kemudian mengklasifikasikan setiap titik ke dalam tingkat risiko lingkungan secara
+      spasial dan interaktif.
+    </p>
+
+    <div class="hero-cta">
+      <a href="map.html" class="btn btn-primary">Jelajahi WebGIS &rarr;</a>
+    </div>
+
+    <p class="hero-spec">WGS 1984 (EPSG:4326) &middot; UTM Zona 47N</p>
+  </div>
+
+  <div class="hero-visual">
+    <p class="hero-visual-label">Peta Hasil Analisis</p>
+    <div class="peta-carousel peta-carousel-hero">
+      <div class="peta-carousel-viewport">
+        <div class="peta-carousel-track" id="petaCarouselTrack">
+          <div class="peta-carousel-item" data-index="0">
+            <div class="peta-img-wrap">
+              <img src="peta/Peta_Keseluruhan.jpeg" alt="Peta Zona Risiko Keseluruhan" loading="lazy"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="peta-img-fallback">Pratinjau belum tersedia<br><span>Taruh Peta_Keseluruhan.jpeg di folder peta/</span></div>
+            </div>
+            <div class="peta-carousel-caption">
+              <p class="peta-carousel-title">Zona Risiko Keseluruhan</p>
+              <a href="peta/Peta_Keseluruhan.pdf" download class="peta-carousel-download">Unduh Peta &darr;</a>
+            </div>
+          </div>
+
+          <div class="peta-carousel-item" data-index="1">
+            <div class="peta-img-wrap">
+              <img src="peta/Peta_Sungai.jpeg" alt="Peta Zona Risiko terhadap Sungai" loading="lazy"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="peta-img-fallback">Pratinjau belum tersedia<br><span>Taruh Peta_Sungai.jpeg di folder peta/</span></div>
+            </div>
+            <div class="peta-carousel-caption">
+              <p class="peta-carousel-title">Zona Risiko &mdash; Sungai</p>
+              <a href="peta/Peta_Sungai.pdf" download class="peta-carousel-download">Unduh Peta &darr;</a>
+            </div>
+          </div>
+
+          <div class="peta-carousel-item" data-index="2">
+            <div class="peta-img-wrap">
+              <img src="peta/Peta_Pemukiman.jpeg" alt="Peta Zona Risiko terhadap Pemukiman" loading="lazy"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="peta-img-fallback">Pratinjau belum tersedia<br><span>Taruh Peta_Pemukiman.jpeg di folder peta/</span></div>
+            </div>
+            <div class="peta-carousel-caption">
+              <p class="peta-carousel-title">Zona Risiko &mdash; Pemukiman</p>
+              <a href="peta/Peta_Pemukiman.pdf" download class="peta-carousel-download">Unduh Peta &darr;</a>
+            </div>
+          </div>
+
+          <div class="peta-carousel-item" data-index="3">
+            <div class="peta-img-wrap">
+              <img src="peta/Peta_Hutan.jpeg" alt="Peta Zona Risiko terhadap Hutan" loading="lazy"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="peta-img-fallback">Pratinjau belum tersedia<br><span>Taruh Peta_Hutan.jpeg di folder peta/</span></div>
+            </div>
+            <div class="peta-carousel-caption">
+              <p class="peta-carousel-title">Zona Risiko &mdash; Hutan</p>
+              <a href="peta/Peta_Hutan.pdf" download class="peta-carousel-download">Unduh Peta &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="peta-carousel-nav peta-carousel-prev" id="petaCarouselPrev" aria-label="Peta sebelumnya">&lsaquo;</button>
+      <button class="peta-carousel-nav peta-carousel-next" id="petaCarouselNext" aria-label="Peta selanjutnya">&rsaquo;</button>
+
+      <div class="peta-carousel-dots" id="petaCarouselDots"></div>
+    </div>
+  </div>
+</header>
+
+<div class="stat-strip reveal" data-reveal>
+  <div class="stat-strip-inner">
+    <div class="stat-block">
+      <p class="stat-num" data-count="20">0</p>
+      <p class="stat-cap">Titik Sumur</p>
+    </div>
+    <div class="stat-tick"></div>
+    <div class="stat-block">
+      <p class="stat-num" data-count="9">0</p>
+      <p class="stat-cap">Manifold</p>
+    </div>
+    <div class="stat-tick"></div>
+    <div class="stat-block">
+      <p class="stat-num" data-count="3">0</p>
+      <p class="stat-cap">Kawasan Sensitif Dianalisis</p>
+    </div>
+    <div class="stat-tick"></div>
+    <div class="stat-block stat-block-wide">
+      <p class="stat-cap stat-cap-top">Distribusi Tingkat Risiko</p>
+      <div class="risk-bar">
+        <span class="risk-seg risk-seg-tinggi" style="width:93.33%"></span>
+        <span class="risk-seg risk-seg-sedang" style="width:0%"></span>
+        <span class="risk-seg risk-seg-rendah" style="width:6.67%"></span>
+      </div>
+      <div class="risk-legend">
+        <span class="rl rl-tinggi">Tinggi <b data-count="93.33" data-decimal="true">0%</b></span>
+        <span class="rl rl-sedang">Sedang <b data-count="0" data-decimal="true">0%</b></span>
+        <span class="rl rl-rendah">Rendah <b data-count="6.67" data-decimal="true">0%</b></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section section-alt" id="tentang">
+  <div class="section-inner reveal" data-reveal>
+    <p class="section-eyebrow">01 &mdash; Latar Belakang</p>
+    <h2 class="section-title">93% Infrastruktur Berada dalam Radius Risiko Tinggi Kawasan Sensitif</h2>
+
+    <div class="tentang-grid">
+      <div class="tentang-text-col">
+        <p class="tentang-text">
+          Kegiatan eksplorasi dan produksi minyak dan gas melibatkan jaringan infrastruktur luas
+          &mdash; sumur, pipa penyalur, dan manifold &mdash; yang tersebar di berbagai
+          kondisi lingkungan. Sebagian berdiri berdekatan dengan kawasan sensitif seperti sungai,
+          permukiman, dan hutan, membawa potensi risiko: pencemaran badan air, gangguan keselamatan
+          warga, hingga kerusakan ekosistem yang sulit dipulihkan.
+        </p>
+        <p class="tentang-text">
+          Studi ini memetakan tingkat risiko tersebut secara spasial menggunakan analisis
+          <em>buffer</em> dan <em>overlay</em> pada wilayah kerja Rantau &amp; Kuala Simpang Barat,
+          Aceh Tamiang, bagian dari Wilayah Kerja Zona 1 Pertamina Hulu Rokan &mdash; dan hasilnya
+          menunjukkan bahwa mayoritas infrastruktur yang dipetakan berada dalam radius kritis
+          kawasan sensitif.
+        </p>
+      </div>
+
+      <div class="tentang-card">
+        <p class="tentang-card-label">Lokasi Studi</p>
+        <p class="tentang-card-value">Rantau &amp; Kuala Simpang Barat</p>
+        <p class="tentang-card-sub">Wilayah Kerja Zona 1 Pertamina Hulu Rokan</p>
+        <div class="tentang-card-divider"></div>
+        <p class="tentang-card-label">Cakupan Data</p>
+        <div class="tentang-card-stats">
+          <div class="tentang-card-stat">
+            <p class="tentang-card-stat-num">20</p>
+            <p class="tentang-card-stat-cap">Sumur</p>
+          </div>
+          <div class="tentang-card-stat">
+            <p class="tentang-card-stat-num">9</p>
+            <p class="tentang-card-stat-cap">Manifold</p>
+          </div>
+          <div class="tentang-card-stat">
+            <p class="tentang-card-stat-num">3</p>
+            <p class="tentang-card-stat-cap">Kawasan Sensitif</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tujuan-box">
+      <p class="tujuan-label">Tujuan</p>
+      <ul class="tujuan-list">
+        <li>Menerapkan SIG untuk pemetaan zona risiko lingkungan infrastruktur migas.</li>
+        <li>Menganalisis kedekatan infrastruktur terhadap sungai, permukiman, dan hutan melalui <em>buffer</em> &amp; <em>overlay</em>.</li>
+        <li>Menghasilkan peta risiko &mdash; statis maupun WebGIS interaktif &mdash; untuk mendukung monitoring &amp; evaluasi.</li>
+      </ul>
+    </div>
+
+    <div class="catatan-limitasi">
+      <p class="catatan-limitasi-label">Catatan Keterbatasan Data</p>
+      <p class="catatan-limitasi-text">
+        Lokasi infrastruktur migas pada studi ini diperoleh dari digitasi <em>as-built drawing</em>
+        yang di-georeferensi, bukan hasil pengukuran GPS langsung di lapangan. Batas kawasan sensitif
+        (sungai, permukiman, hutan) mengacu pada Peta Rupabumi Indonesia (RBI) skala referensi nasional.
+        Karena itu, hasil klasifikasi risiko ini bersifat indikatif untuk skrining awal, dan sebaiknya
+        divalidasi lebih lanjut dengan survei lapangan sebelum dipakai sebagai dasar keputusan teknis.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="metodologi">
+  <div class="section-inner reveal" data-reveal>
+    <p class="section-eyebrow">02 &mdash; Metodologi</p>
+    <h2 class="section-title">Alur Kerja Pemetaan Risiko</h2>
+    <p class="section-lead">
+      Setiap jenis infrastruktur &mdash; sumur, pipa, dan manifold &mdash; dinilai kedekatannya
+      terhadap tiap kawasan sensitif &mdash; sungai, permukiman, dan hutan &mdash; menghasilkan
+      sembilan kombinasi penilaian jarak, melalui empat tahap berikut:
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item reveal" data-reveal>
+        <div class="timeline-marker">01</div>
+        <div class="timeline-body">
+          <p class="timeline-title">Studi Literatur &amp; Pengumpulan Data</p>
+          <p class="timeline-desc">
+            Mempelajari konsep SIG, analisis buffer &amp; overlay, lalu mengumpulkan data lokasi
+            infrastruktur migas serta batas kawasan sensitif dari sumber internal PHR dan data RBI.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" data-reveal>
+        <div class="timeline-marker">02</div>
+        <div class="timeline-body">
+          <p class="timeline-title">Pre-processing Data Spasial</p>
+          <p class="timeline-desc">
+            Menyamakan sistem koordinat, membersihkan atribut, dan menyiapkan seluruh data
+            dalam satu referensi spasial yang konsisten.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" data-reveal>
+        <div class="timeline-marker">03</div>
+        <div class="timeline-body">
+          <p class="timeline-title">Analisis Spasial: Buffer &amp; Overlay</p>
+          <p class="timeline-desc">
+            Membentuk zona penyangga di sekitar tiap kawasan sensitif, lalu menumpangsusunkannya
+            dengan lokasi infrastruktur untuk mengukur jarak kedekatan sebenarnya.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" data-reveal>
+        <div class="timeline-marker">04</div>
+        <div class="timeline-body">
+          <p class="timeline-title">Klasifikasi &amp; Penyajian Peta Risiko</p>
+          <p class="timeline-desc">
+            Mengelompokkan setiap infrastruktur ke kategori Tinggi, Sedang, atau Rendah,
+            lalu menyajikannya sebagai peta zona risiko interaktif.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="threshold-table reveal" data-reveal>
+      <div class="threshold-row threshold-head">
+        <span>Kawasan Sensitif</span><span>Tinggi</span><span>Sedang</span><span>Rendah</span>
+      </div>
+      <div class="threshold-row">
+        <span>Sungai</span><span class="t-tinggi">&le; 100 m</span><span class="t-sedang">100&ndash;150 m</span><span class="t-rendah">&gt; 150 m</span>
+      </div>
+      <div class="threshold-row">
+        <span>Permukiman</span><span class="t-tinggi">&le; 250 m</span><span class="t-sedang">250&ndash;400 m</span><span class="t-rendah">&gt; 400 m</span>
+      </div>
+      <div class="threshold-row">
+        <span>Hutan</span><span class="t-tinggi">&le; 250 m</span><span class="t-sedang">250&ndash;400 m</span><span class="t-rendah">&gt; 400 m</span>
+      </div>
+    </div>
+
+    <div class="catatan-limitasi catatan-limitasi-attached">
+      <p class="catatan-limitasi-label">Dasar Penentuan Radius Tinggi</p>
+      <p class="catatan-limitasi-text">
+        Radius sungai (&le;100 m) mengacu pada PP No. 38 Tahun 2011 tentang sempadan sungai.
+        Radius permukiman dan hutan (&le;250 m) merupakan pendekatan konservatif, mengacu pada
+        skala radius aman instalasi migas pada Permen ESDM No. 32 Tahun 2021 (500 m),
+        dipersempit untuk kebutuhan skrining risiko dini.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="fitur">
+  <div class="section-inner reveal" data-reveal>
+    <p class="section-eyebrow">03 &mdash; Fitur</p>
+    <h2 class="section-title">Fitur Interaktif WebGIS</h2>
+    <p class="section-lead">
+      Seluruh analisis di atas dapat dijelajahi langsung secara interaktif dan real-time
+      melalui WebGIS ini, bukan sekadar peta statis.
+    </p>
+
+    <div class="fitur-grid">
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">🔍</div>
+        <p class="fitur-tag">CARI</p>
+        <p class="fitur-title">Pencarian Sumur</p>
+        <p class="fitur-desc">Ketik nama sumur untuk langsung zoom dan membuka detail titiknya di peta.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">🗂️</div>
+        <p class="fitur-tag">LAYER</p>
+        <p class="fitur-title">Toggle Layer Interaktif</p>
+        <p class="fitur-desc">Tampilkan atau sembunyikan infrastruktur, kawasan sensitif, buffer, jalan, dan batas area sesuai kebutuhan.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">🗺️</div>
+        <p class="fitur-tag">PETA DASAR</p>
+        <p class="fitur-title">Tiga Basemap</p>
+        <p class="fitur-desc">Beralih antara OpenStreetMap, citra satelit, dan peta topografi lengkap dengan kontur dan relief.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">📊</div>
+        <p class="fitur-tag">STATISTIK</p>
+        <p class="fitur-title">Statistik Risiko Real-time</p>
+        <p class="fitur-desc">Ringkasan total risiko beserta rincian per kawasan sensitif dan jenis infrastruktur.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">📍</div>
+        <p class="fitur-tag">DETAIL</p>
+        <p class="fitur-title">Popup Detail per Titik</p>
+        <p class="fitur-desc">Klik titik mana pun untuk melihat kategori risiko akhir dan jarak ke setiap kawasan sensitif.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">⟲</div>
+        <p class="fitur-tag">RESET</p>
+        <p class="fitur-title">Reset Tampilan Peta</p>
+        <p class="fitur-desc">Sekali klik untuk balik ke extent awal, kalau sudah zoom atau geser terlalu jauh.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">📤</div>
+        <p class="fitur-tag">EKSPOR</p>
+        <p class="fitur-title">Unduh Data dan Cetak</p>
+        <p class="fitur-desc">Unduh rekap klasifikasi risiko dalam format CSV, atau cetak tampilan peta dan statistik ke PDF.</p>
+      </div>
+      <div class="fitur-card reveal" data-reveal>
+        <div class="fitur-icon">ℹ️</div>
+        <p class="fitur-tag">INFO</p>
+        <p class="fitur-title">Metadata Peta</p>
+        <p class="fitur-desc">Sumber data, sistem koordinat, dan referensi klasifikasi risiko yang digunakan disajikan secara transparan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="tim">
+  <div class="section-inner reveal" data-reveal>
+    <p class="section-eyebrow">04 &mdash; Tim</p>
+    <h2 class="section-title">Penyusun &amp; Pembimbing</h2>
+
+    <div class="tim-subgroup">
+      <p class="tim-subgroup-label">Penyusun</p>
+      <div class="tim-grid tim-grid-2">
+        <div class="tim-card reveal" data-reveal>
+          <div class="tim-photo"><img src="foto/jeje.png" alt="Jeshinta Mevianda Wilujeng" /></div>
+          <p class="tim-name">Jeshinta Mevianda Wilujeng</p>
+          <p class="tim-nrp">NRP 5016231007</p>
+        </div>
+        <div class="tim-card reveal" data-reveal>
+          <div class="tim-photo"><img src="foto/apis.png" alt="Firsty Fairus Jihan Rifani" /></div>
+          <p class="tim-name">Firsty Fairus Jihan Rifani</p>
+          <p class="tim-nrp">NRP 5016231024</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tim-subgroup">
+      <p class="tim-subgroup-label">Pembimbing</p>
+      <div class="tim-grid">
+        <div class="tim-card reveal" data-reveal>
+          <div class="tim-photo tim-photo-placeholder">NI</div>
+          <p class="tim-role">Dosen Pembimbing ITS</p>
+          <p class="tim-name">Nafisatus Sania Irbah, S.T., M.T.</p>
+        </div>
+        <div class="tim-card reveal" data-reveal>
+          <div class="tim-photo tim-photo-placeholder">HP</div>
+          <p class="tim-role">Pembimbing PHR</p>
+          <p class="tim-name">Hadi Purwana</p>
+        </div>
+        <div class="tim-card reveal" data-reveal>
+          <div class="tim-photo tim-photo-placeholder">WP</div>
+          <p class="tim-role">Pembimbing PHR</p>
+          <p class="tim-name">Wiragha Pujahutama</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="tim-dept">Departemen Teknik Geomatika &middot; Institut Teknologi Sepuluh Nopember &middot; 2026</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Sumber data: Infrastruktur &mdash; Pertamina Hulu Rokan &middot; Kawasan Sensitif &mdash; Peta RBI (Lapak GIS, BIG)</p>
+  <p>&copy; 2026 Kerja Praktek Teknik Geomatika ITS</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Kembali ke atas" title="Kembali ke atas">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"/>
+    <path d="M6 11l6-6 6 6"/>
+  </svg>
+</button>
+
+<div class="peta-lightbox" id="petaLightbox">
+  <button class="peta-lightbox-close" id="petaLightboxClose" aria-label="Tutup pratinjau">&times;</button>
+  <div class="peta-lightbox-inner">
+    <img src="" alt="" id="petaLightboxImg" />
+    <p class="peta-lightbox-title" id="petaLightboxTitle"></p>
+  </div>
+</div>
+
+<script src="landing.js"></script>
+</body>
+</html>
